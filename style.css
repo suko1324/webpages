@@ -24,6 +24,9 @@ footer{
     bottom: 0px;
     width: 100%;
     background-color: rgb(153, 153, 229);
+    margin: 0px;
+    padding: 10px;
+
 
 }
 
@@ -38,4 +41,14 @@ td{
 table{
     border: 3px solid pink;
     border-radius: 7px;
+}
+body{
+    background-image: url(people.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+#icon{
+    border-radius: 50%;
+    border: 2px solid black ;
 }
