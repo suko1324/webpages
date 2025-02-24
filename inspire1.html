@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiring Website</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 48px;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .quote {
+            font-family: 'Times New Roman', serif;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 30px;
+            animation: fadeUp 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-of-day,
+        strong {
+            font-family: 'Times New Roman', serif;
+            font-size: 30px;
+            margin-top: 20px;
+            font-weight: normal;
+            animation: fadeUp 2s ease-in-out forwards;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background-color: #f39c12;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .loading {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        /* Footer Styling */
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 18px;
+            color: #ddd;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Modal (Popup) Styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .popup .message {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .popup .btn {
+            margin-top: 20px;
+            background-color: #e67e22;
+            font-size: 18px;
+            padding: 12px 24px;
+        }
+
+        .popup .btn:hover {
+            background-color: #f39c12;
+        }
+
+        /* Dark Mode Styling */
+        .dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+
+        .dark-mode .btn {
+            background-color: #e67e22;
+        }
+
+        .dark-mode .quote {
+            opacity: 0.8;
+        }
+
+        .dark-mode .quote-of-day {
+            color: #ecf0f1;
+        }
+
+        .dark-mode .footer {
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to Inspiration Hub</h1>
+
+    <div class="quote-of-day">
+        <strong>Quote of the day :</strong>
+        <p id="quote-of-day">"The future belongs to those who believe in the beauty of their dreams." - Eleanor
+            Roosevelt</p>
+    </div>
+
+    <div class="quote">
+        <p>"The only way to do great work is to love what you do." - Steve Jobs</p>
+    </div>
+
+    <button class="btn" id="inspireButton" onclick="generateQuote()">Get Inspired</button>
+
+    <div class="loading" id="loadingMessage" style="display: none;">Loading...</div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 Inspiration Hub</p>
+    </div>
+
+    <!-- Modal (Popup) -->
+    <div class="popup" id="exitPopup">
+        <div class="message">Wait! Before you go, stay inspired!</div>
+        <button class="btn" onclick="closePopup()">Stay Here</button>
+    </div>
+
+    <script>
+        // Array of 50+ quotes
+        const quotes = [
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+            "In the end, we will remember not the words of our enemies, but the silence of our friends. - Martin Luther King Jr.",
+            "It always seems impossible until it’s done. - Nelson Mandela",
+            "The journey of a thousand miles begins with one step. - Lao Tzu",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+            "It does not matter how slowly you go as long as you do not stop. - Confucius",
+            "Act as if what you do makes a difference. It does. - William James",
+            "Success usually comes to those who are too busy to be looking for it. - Henry David Thoreau",
+            "Journey of 100 miles starts with a single step - Susmit",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts - Winston Churchill",
+            "Believe you can and you're halfway there - Theodore Roosevelt",
+            "The only way to do great work is to love what you do - Steve Jobs",
+            "It always seems impossible until it’s done - Nelson Mandela",
+            "The future belongs to those who believe in the beauty of their dreams - Eleanor Roosevelt",
+            "It does not matter how slowly you go as long as you do not stop - Confucius",
+            "Success usually comes to those who are too busy to be looking for it - Henry David Thoreau",
+            "Don’t watch the clock; do what it does. Keep going - Sam Levenson",
+            "What you get by achieving your goals is not as important as what you become by achieving your goals - Zig Ziglar",
+            "The harder you work for something, the greater you’ll feel when you achieve it - Unknown",
+            "Success is the sum of small efforts, repeated day in and day out - Robert Collier",
+            "The way to get started is to quit talking and begin doing - Walt Disney",
+            "Dream big and dare to fail - Norman Vaughan",
+            "Your limitation—it’s only your imagination - Unknown",
+            "Push yourself, because no one else is going to do it for you - Unknown",
+            "Sometimes we’re tested not to show our weaknesses, but to discover our strengths - Unknown",
+            "The key to success is to focus on goals, not obstacles - Unknown",
+            "Dream it. Wish it. Do it - Unknown",
+            "Success doesn’t just find you. You have to go out and get it - Unknown",
+            "Great things never come from comfort zones - Unknown",
+            "Dream it. Believe it. Build it - Unknown",
+            "The only limit to our realization of tomorrow is our doubts of today - Franklin D. Roosevelt",
+            "You are never too old to set another goal or to dream a new dream - C.S. Lewis",
+            "Everything you can imagine is real - Pablo Picasso",
+            "The only place where success comes before work is in the dictionary - Vidal Sassoon",
+            "Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart - Roy T. Bennett",
+            "Opportunities don’t happen, you create them - Chris Grosser",
+            "Once you choose hope, anything’s possible - Christopher Reeve",
+            "You don’t have to be great to start, but you have to start to be great - Zig Ziglar",
+            "It’s not whether you get knocked down, it’s whether you get up - Vince Lombardi",
+            "The best way to predict the future is to create it - Peter Drucker",
+            "Your time is limited, so don’t waste it living someone else’s life - Steve Jobs",
+            "You miss 100% of the shots you don’t take - Wayne Gretzky",
+            "If you’re going through hell, keep going - Winston Churchill",
+            "If you want to lift yourself up, lift up someone else - Booker T. Washington",
+            "You must be the change you wish to see in the world - Mahatma Gandhi",
+            "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty - Winston Churchill",
+            "Success is not how high you have climbed, but how you make a positive difference to the world - Roy T. Bennett",
+            "The secret of getting ahead is getting started - Mark Twain",
+            "Everything has beauty, but not everyone sees it - Confucius",
+            "Life is 10% what happens to us and 90% how we react to it - Charles R. Swindoll",
+            "The best revenge is massive success - Frank Sinatra",
+            "In the end, we will remember not the words of our enemies, but the silence of our friends - Martin Luther King Jr.",
+            "The future belongs to those who prepare for it today - Malcolm X",
+            "A journey of a thousand miles begins with a single step - Lao Tzu",
+            "The way to get started is to quit talking and begin doing - Walt Disney",
+            "Keep your face always toward the sunshine—and shadows will fall behind you - Walt Whitman",
+            "What you get by achieving your goals is not as important as what you become by achieving your goals - Zig Ziglar",
+            "Act as if what you do makes a difference. It does - William James",
+            "We may encounter many defeats, but we must not be defeated - Maya Angelou",
+            "Everything you’ve ever wanted is on the other side of fear - George Addair",
+            "You don’t have to be great to start, but you have to start to be great - Zig Ziglar",
+            "Hardships often prepare ordinary people for an extraordinary destiny - C.S. Lewis",
+            "Don’t wait for opportunity. Create it - Unknown",
+            "The best way to predict your future is to create it - Abraham Lincoln",
+            "I have not failed. I’ve just found 10,000 ways that won’t work - Thomas Edison",
+            "If you want to go fast, go alone. If you want to go far, go together - African Proverb",
+            "Do one thing every day that scares you - Eleanor Roosevelt",
+            "To live a creative life, we must lose our fear of being wrong - Joseph Chilton Pearce",
+            "You become what you believe - Oprah Winfrey",
+            "The mind is everything. What you think you become - Buddha",
+            "Success is walking from failure to failure with no loss of enthusiasm - Winston Churchill",
+            "It is never too late to be what you might have been - George Eliot",
+            "Everything you can imagine is real - Pablo Picasso",
+            "The only way to do great work is to love what you do - Steve Jobs",
+            "Happiness is not something ready-made. It comes from your own actions - Dalai Lama",
+            "Don’t be afraid to give up the good to go for the great - John D. Rockefeller",
+            "Life is what happens when you’re busy making other plans - John Lennon",
+            "Success is the sum of small efforts, repeated day in and day out - Robert Collier",
+            "You can never cross the ocean until you have the courage to lose sight of the shore - Christopher Columbus",
+            "You don’t have to be great to start, but you have to start to be great - Zig Ziglar",
+            "The best way to predict your future is to create it - Abraham Lincoln",
+            "If you want to achieve greatness stop asking for permission - Unknown",
+            "Everything you can imagine is real - Pablo Picasso",
+            "Keep your face always toward the sunshine—and shadows will fall behind you - Walt Whitman",
+            "Success is not the key to happiness. Happiness is the key to success - Albert Schweitzer",
+            "Success usually comes to those who are too busy to be looking for it - Henry David Thoreau",
+            "The best way to predict the future is to create it - Peter Drucker",
+            "It always seems impossible until it’s done - Nelson Mandela",
+            "Life is either a daring adventure or nothing at all - Helen Keller",
+            "Opportunities don't happen, you create them - Chris Grosser",
+            "Doubt kills more dreams than failure ever will - Suzy Kassem",
+            "The secret of getting ahead is getting started - Mark Twain",
+            "Your life does not get better by chance, it gets better by change - Jim Rohn",
+            "It does not matter how slowly you go, as long as you do not stop - Confucius",
+            "What lies behind us and what lies before us are tiny matters compared to what lies within us - Ralph Waldo Emerson",
+            "The harder you work for something, the greater you’ll feel when you achieve it - Unknown",
+            "I am not a product of my circumstances. I am a product of my decisions - Stephen R. Covey",
+            // Add more quotes here...
+        ];
+
+        let usedQuotes = []; // Array to store the quotes that have been used
+
+        // Function to generate a random quote
+        function generateQuote() {
+            // Disable the button while loading
+            const button = document.getElementById('inspireButton');
+            button.disabled = true;
+
+            // Show the loading message
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            // If all quotes have been used, reset the usedQuotes array and shuffle
+            if (usedQuotes.length === quotes.length) {
+                usedQuotes = [];
+            }
+
+            // Select a random quote from the array
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * quotes.length);
+            } while (usedQuotes.includes(randomIndex)); // Ensure no repetition
+
+            // Add the selected quote to the usedQuotes array
+            usedQuotes.push(randomIndex);
+
+            // Fetch the quote and update the UI
+            const selectedQuote = quotes[randomIndex];
+            document.querySelector(".quote p").textContent = selectedQuote;
+
+            // Hide the loading message
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            // Re-enable the button after 1 second
+            setTimeout(() => {
+                document.getElementById('inspireButton').disabled = false;
+            }, 1000);
+        }
+
+        // Function to show the exit popup
+        function showExitPopup(event) {
+            event.preventDefault();
+            const popup = document.getElementById('exitPopup');
+            popup.style.display = 'flex';
+        }
+
+        // Function to close the exit popup
+        function closePopup() {
+            const popup = document.getElementById('exitPopup');
+            popup.style.display = 'none';
+        }
+
+        // Set the Quote of the Day
+        function setQuoteOfTheDay() {
+            const quotesOfTheDay = [
+                "The only limit to our realization of tomorrow is our doubts of today - Franklin D. Roosevelt",
+                "The best time to plant a tree was 20 years ago. The second best time is now - Chinese Proverb",
+                "Don’t stop when you’re tired. Stop when you’re done - Unknown",
+                "It’s not whether you get knocked down, it’s whether you get up - Vince Lombardi",
+                "Believe you can and you’re halfway there - Theodore Roosevelt",
+                "Everything you’ve ever wanted is on the other side of fear - George Addair",
+                "Act as if what you do makes a difference. It does - William James",
+                "You can do anything, but not everything - David Allen",
+                "Don’t wait for opportunity. Create it - Unknown",
+                "A person who never made a mistake never tried anything new - Albert Einstein",
+                "The journey is the reward - Steve Jobs",
+                "The only way to do great work is to love what you do - Steve Jobs",
+            ];
+
+            const today = new Date();
+            const quoteOfTheDayIndex = today.getDate() % quotesOfTheDay.length;
+
+            document.getElementById('quote-of-day').textContent = quotesOfTheDay[quoteOfTheDayIndex];
+        }
+
+        // Initialize Quote of the Day on page load
+        window.onload = setQuoteOfTheDay;
+
+        // Listen for when the user tries to leave the page
+        window.onbeforeunload = function (event) {
+            showExitPopup(event);
+            return 'Are you sure you want to leave?';
+        };
+
+    </script>
+
+</body>
+
+</html>
