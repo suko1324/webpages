@@ -22,18 +22,14 @@
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
 
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             margin: auto;
-            overflow: hidden;
             padding: 20px;
         }
 
@@ -42,46 +38,33 @@
             padding: 20px;
             margin: 10px 0;
             border-radius: 8px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
         }
 
-        .section:hover {
-            transform: scale(1.02);
-        }
+        .section:hover { transform: scale(1.02); }
 
         .projects {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+            justify-content: center;
         }
 
         .project-card {
             background: #fff;
             padding: 15px;
             border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            width: 30%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            min-width: 250px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: #333;
-            color: white;
-            font-size: 14px;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer:hover {
-            opacity: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
         .project-card a {
@@ -91,19 +74,33 @@
             transition: color 0.3s ease;
         }
 
-        .project-card a:hover {
-            color: #0056b3;
+        .project-card a:hover { color: #0056b3; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+            font-size: 14px;
         }
 
         .section h2 {
             font-size: 24px;
             color: #333;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
         }
 
-        .section h2:hover {
-            color: #007bff;
+        .section h2:hover { color: #007bff; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .projects {
+                flex-direction: column;
+                align-items: center;
+            }
+            .project-card {
+                width: 100%;
+            }
+           
         }
     </style>
 </head>
@@ -116,20 +113,20 @@
     <div class="container">
         <section class="section">
             <h2>About Me</h2>
-            <p>Hello! I'm a passionate developer exploring web development and programming. This portfolio showcases my projects and learning journey. If you want to join me be sure to check out my contact details.</p>
+            <p>Hello! I'm a passionate developer exploring web development and programming. This portfolio showcases my projects and learning journey. If you want to join me, check out my contact details.</p>
         </section>
 
         <section class="section">
             <h2>Projects</h2>
             <div class="projects">
                 <div class="project-card">
-                    <h3>Engineering pdfs</h3>
-                    <p>In this Project my motive is to provide pdf of all engineering faculties</p>
-                    <a href="services.html">Engineering help</a>
+                    <h3>Engineering PDFs</h3>
+                    <p>Providing PDFs of all engineering faculties.</p>
+                    <a href="services.html">Engineering Help</a>
                 </div>
                 <div class="project-card">
                     <h3>Inspiration Hub</h3>
-                    <p>Motivate yourself once a day.☺️</p>
+                    <p>Motivate yourself once a day. ☺️</p>
                     <a href="inspire1.html">View Project</a>
                 </div>
                 <div class="project-card">
