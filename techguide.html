@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech & Vehicle Guide</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="techstyle.css" />
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #5b6af0;
+      --accent-color: #7c8ff7;
+      --highlight-gradient: linear-gradient(135deg, #4a90e2, #5b6af0);
+      --text-primary: #2c3e50;
+      --text-secondary: #64748b;
+      --background-light: #f8fafc;
+      --border-color: #e2e8f0;
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+      font-family: var(--font-primary);
+    }
+    .loading i {
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 0.25rem;
+      text-align: center;
+    }
+    .project-description {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      padding: 2.5rem;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: var(--shadow-md);
+      text-align: left;
+      line-height: 1.7;
+    }
+    .project-description h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .project-description p {
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+    .feature-list {
+      background: var(--background-light);
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      margin: 1.5rem 0;
+    }
+    .feature-list h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .feature-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .feature-list li {
+      margin: 0.8rem 0;
+      padding-left: 1.8rem;
+      position: relative;
+    }
+    .feature-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+    }
+    .highlight-box {
+      background: var(--highlight-gradient);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 0.8rem;
+      margin: 1.5rem 0;
+    }
+    .highlight-box h3 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .emoji {
+      font-style: normal;
+      margin-right: 0.5rem;
+    }
+    .question-box {
+      background: var(--background-light);
+      padding: 1.2rem;
+      border-radius: 0.8rem;
+      margin: 1rem 0;
+      border-left: 4px solid var(--primary-color);
+    }
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--border-color), transparent);
+      margin: 3rem auto;
+      max-width: 800px;
+    }
+    .contact-section {
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+    }
+    .contact-developer {
+      background: var(--highlight-gradient);
+      color: white;
+      padding: 2.5rem;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(74, 144, 226, 0.1);
+    }
+    .contact-developer h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    .contact-text {
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2rem;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .social-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .social-link i {
+      font-size: 1.2rem;
+    }
+    .contact-divider {
+      width: 50%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 2rem auto;
+    }
+    @media (max-width: 768px) {
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .social-link {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Tech & Vehicle Guide</h1>
+  
+  <div id="app">
+    <div class="loading">
+      <i class="fas fa-spinner"></i>
+      Loading guide data...
+    </div>
+  </div>
+
+  <div class="project-description" style="display: none;">
+    <h2>Tired of confusing tech specs and endless research?</h2>
+    <p>Are you overwhelmed by confusing spec sheets, biased reviews, and endless YouTube rabbit holes when trying to choose the right phone, laptop, or vehicle?</p>
+    
+    <p>I'm building a smart, beginner-friendly platform that breaks down complex technical specifications of electronics and vehicles — from Android phones and MacBooks to SUVs and electric cars — into simple, real-world explanations.</p>
+    
+    <div class="highlight-box">
+      <h3><span class="emoji">💡</span>Our Mission</h3>
+      <p>The goal is not to overwhelm users with numbers but to guide them based on actual use cases:</p>
+      <div class="question-box">
+        <p>• Which iPhone is best for casual users vs content creators?</p>
+        <p>• Which laptop fits a student better than a video editor?</p>
+        <p>• SUV vs pickup: what really matters for a traveler or daily commuter?</p>
+      </div>
+    </div>
+
+    <div class="feature-list">
+      <h3><span class="emoji">✨</span>Key Features (Planned)</h3>
+      <ul>
+        <li>Category-wise product breakdown (Phones, Laptops, Smartwatches, Vehicles, etc.)</li>
+        <li>Real-world scenario recommendations instead of boring comparisons</li>
+        <li>Clean UI with animations, smooth navigation, and local data (for now)</li>
+        <li>Built from scratch using HTML, CSS, JS (React planned for future)</li>
+        <li>Expandable with JSON data and easy to maintain thanks to developer-friendly comments</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Why this matters:</h3>
+      <p>Most people still don't understand what specs mean. I want to change that—and if you're a developer who loves meaningful projects, clean UI/UX, or helping people make smarter decisions without tech jargon, then you'll want to see what I'm building.</p>
+    </div>
+  </div>
+
+  <div class="contact-section" style="display: none;">
+    <div class="contact-developer">
+      <h3><span class="emoji">💬</span>Let's Build This Smarter Web Together</h3>
+      <p class="contact-text">If this sounds interesting or you think you can improve it, don't just scroll past—let's connect through any of these platforms:</p>
+      
+      <div class="social-links">
+        <a href="mailto:koiralasusmit9@gmail.com" class="social-link">
+          <i class="fas fa-envelope"></i>
+          Gmail
+        </a>
+        <a href="https://www.facebook.com/share/18uDtfJRZm/" target="_blank" class="social-link">
+          <i class="fab fa-facebook"></i>
+          Facebook
+        </a>
+        <a href="https://t.me/koirala101" target="_blank" class="social-link">
+          <i class="fab fa-telegram"></i>
+          Telegram
+        </a>
+      </div>
+      
+      <div class="contact-divider"></div>
+      
+      <div class="social-links">
+        <a href="https://www.instagram.com/susmit9667" target="_blank" class="social-link">
+          <i class="fab fa-instagram"></i>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/susmit-koirala-544a53315" target="_blank" class="social-link">
+          <i class="fab fa-linkedin"></i>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load data first, with defer to ensure DOM is ready -->
+  <script defer src="techdata.js"></script>
+  <!-- Then load main script -->
+  <script defer src="techscript.js"></script>
+</body>
+</html>
